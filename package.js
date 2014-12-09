@@ -10,6 +10,7 @@ Package.onUse(function(api) {
   api.use('cwohlman:payments@0.1.0');
   api.imply('cwohlman:payments');
   api.use('templating');
+  api.use('underscore');
 
   Npm.depends({
     'stripe': '3.0.2'
@@ -54,6 +55,8 @@ Package.onUse(function(api) {
 
 Package.onTest(function(api) {
   api.use('tinytest');
+  api.use('mongo');
+  api.use('underscore');
   api.use('cwohlman:stripe-payments');
 
   api.addFiles('tests/config.js');
@@ -61,4 +64,6 @@ Package.onTest(function(api) {
   api.addFiles('tests/serverSideMethods.js');
   api.addFiles('tests/createCustomer.js');
   api.addFiles('tests/createPaymentMethod.js');
+  api.addFiles('tests/createDebit.js');
+  api.addFiles('tests/createTransaction.js');
 });

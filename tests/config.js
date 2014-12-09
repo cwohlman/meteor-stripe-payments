@@ -39,3 +39,4 @@ if (Meteor.isServer) {
       Payments.provider.config('sk_test_A5jGIKAJKfGPQHm3CqUsOScT');
   });
 }
+

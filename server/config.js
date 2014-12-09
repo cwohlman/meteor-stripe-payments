@@ -4,6 +4,7 @@ Payments.provider = {
   config: function (key) {
     Stripe = Npm.require('stripe')(key);
   }
+  , currency: 'USD'
 };
 
 Meteor.startup(function () {

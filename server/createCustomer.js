@@ -1,7 +1,7 @@
 Payments.provider.createCustomer = Meteor.wrapAsync(
   function (userId, callback) {
     check(userId, String);
-    
+
     var user = Meteor.users.findOne(userId);
 
     var description = user.profile && user.profile.name;

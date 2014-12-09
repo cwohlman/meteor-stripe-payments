@@ -1,6 +1,6 @@
 if (Meteor.isClient) {
   Tinytest.addAsync(
-    'Stripe Payments - Provider - createCardToken'
+    'Stripe Payments - createCardToken - isCallable'
     , function (test, done) {
       test.isTrue(_.isFunction(Payments.provider.createCardToken));
       Payments.provider.createCardToken({
@@ -12,6 +12,6 @@ if (Meteor.isClient) {
         test.isTrue(!error);
         test.isTrue(_.isString(result));
         done();
-    });
+      });
   });
 }
