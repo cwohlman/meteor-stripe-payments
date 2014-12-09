@@ -7,7 +7,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0');
-  api.use('cwohlman:payments@0.1.0');
+  api.use('cwohlman:payments@0.1.1');
   api.imply('cwohlman:payments');
   api.use('templating');
   api.use('underscore');
