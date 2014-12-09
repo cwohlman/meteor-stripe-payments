@@ -9,7 +9,7 @@ Payments.provider = {
 
 Meteor.startup(function () {
   var key = Meteor.settings && Meteor.settings &&
-    Meteor.settings.stripe && Meteor.settings.stripe.publishableKey;
+    Meteor.settings.stripe && Meteor.settings.stripe.secretKey;
   if (key) {
     Payments.provider.config(key);
   }

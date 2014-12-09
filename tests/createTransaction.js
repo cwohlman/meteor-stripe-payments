@@ -24,27 +24,10 @@ if (Meteor.isServer) {
         , kind: 'debit'
       });
 
-      return transactionId;
-
-      // var customerId = Payments.provider.createCustomer(userId)._id;
-
-      // // Stripe requires a customerId when using stored payment methods,
-      // // we need a way to provide that to the payment processing system.
-      // Payments.customers.insert({
-      //   _id: customerId
-      //   , userId: userId
-      // });
-
-      // var paymentId = Payments.provider.createPaymentMethod(
-      //   customerId, token)._id;
-
-      // var debit = Payments.provider.createTransaction({
-      //   amount: -100
-      //   , paymentMethodId: paymentId
-      //   , userId: userId
-      // });
-
-      // return debit;
+      return {
+        transaction: Payments.transactions.findOne(transactionId)
+        , paymentMethod: Payments.paymentMethods.findOne(paymentMethodId)
+      };
     }
   });
 }
@@ -59,8 +42,12 @@ if (Meteor.isClient) {
         , exp_year: (new Date()).getFullYear().toString().slice(2)
       }, function (error, result) {
         Meteor.call('createTransaction', result, function (error, result) {
-          test.isTrue(_.isString(result));
-          
+          test.isTrue(!!result.transaction);
+          test.isTrue(!!result.paymentMethod);
+
+          test.equal(result.paymentMethod.name, 'Visa - 4242');
+          test.equal(result.paymentMethod.description, 'Visa - 4242');
+
           done();
         });
       });

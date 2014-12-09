@@ -25,6 +25,10 @@ Payments.provider.createPaymentMethod = Meteor.wrapAsync(
           result._id = response.id;
           result.response = response;
           result.status = 'success';
+          result.name = response.brand + ' - ' + response.last4;
+          // Ideally this would include more info, such as the issuing bank
+          // but brand and last 4 are all that stripe provides.
+          result.description = response.brand + ' - ' + response.last4;
         } else {
           throw new Error('No data received');
         }
