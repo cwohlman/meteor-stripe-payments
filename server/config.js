@@ -1,8 +1,8 @@
-Stripe = Npm.require('stripe');
+Stripe = null;
 
 Payments.provider = {
   config: function (key) {
-    this.stripe = Stripe(key);
+    Stripe = Npm.require('stripe')(key);
   }
 };
 

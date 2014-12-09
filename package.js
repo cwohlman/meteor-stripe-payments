@@ -58,5 +58,7 @@ Package.onTest(function(api) {
 
   api.addFiles('tests/config.js');
   api.addFiles('tests/createCardToken.js');
+  api.addFiles('tests/serverSideMethods.js');
   api.addFiles('tests/createCustomer.js');
+  api.addFiles('tests/createPaymentMethod.js');
 });
