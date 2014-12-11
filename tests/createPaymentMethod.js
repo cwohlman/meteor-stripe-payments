@@ -3,9 +3,9 @@ if (Meteor.isServer) {
     'createPaymentMethod': function (token) {
       var userId = Meteor.users.insert({});
 
-      var customerId = Payments.provider.createCustomer(userId)._id;
+      var customerId = TestPayments.provider.createCustomer(userId)._id;
 
-      var paymentId = Payments.provider.createPaymentMethod(
+      var paymentId = TestPayments.provider.createPaymentMethod(
         customerId, token)._id;
 
       return paymentId;
@@ -16,7 +16,7 @@ if (Meteor.isClient) {
   Tinytest.addAsync(
     'Stripe Payments - createPaymentMethod - is callable'
     , function (test, done) {
-      Payments.provider.createCardToken({
+      TestPayments.provider.createCardToken({
         number: 4242424242424242
         , cvc: 123
         , exp_month: '12'

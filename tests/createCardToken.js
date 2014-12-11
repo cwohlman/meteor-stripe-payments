@@ -2,8 +2,8 @@ if (Meteor.isClient) {
   Tinytest.addAsync(
     'Stripe Payments - createCardToken - isCallable'
     , function (test, done) {
-      test.isTrue(_.isFunction(Payments.provider.createCardToken));
-      Payments.provider.createCardToken({
+      test.isTrue(_.isFunction(TestPayments.provider.createCardToken));
+      TestPayments.provider.createCardToken({
         number: 4242424242424242
         , cvc: 123
         , exp_month: '12'

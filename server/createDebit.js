@@ -1,4 +1,4 @@
-Payments.provider.createDebit = Meteor.wrapAsync(
+StripePayments.prototype.provider.createDebit = 
   function (transaction, callback) {
     check(transaction, Match.ObjectIncluding({
       amount: Match.Where(function (a) {
@@ -7,8 +7,9 @@ Payments.provider.createDebit = Meteor.wrapAsync(
       , paymentMethodId: String
       , userId: String
     }));
+    var self = this;
 
-    var customer = Payments.customers.findOne({
+    var customer = self.customers.findOne({
       userId: transaction.userId
     });
 
@@ -19,7 +20,7 @@ Payments.provider.createDebit = Meteor.wrapAsync(
 
     var request = {
       amount: -transaction.amount
-      , currency: Payments.provider.currency
+      , currency: self.provider.currency
       , customer: customer._id
       , card: transaction.paymentMethodId
       , description: transaction.description || undefined
@@ -48,4 +49,4 @@ Payments.provider.createDebit = Meteor.wrapAsync(
       }
       callback(null, result);
     });
-});
+};

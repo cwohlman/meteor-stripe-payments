@@ -8,13 +8,14 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0');
   api.use('cwohlman:payments@0.2.0');
-  api.imply('cwohlman:payments');
   api.use('templating');
   api.use('underscore');
 
   Npm.depends({
     'stripe': '3.0.2'
   });
+
+  api.export('StripePayments');
 
   // Stripe OAuth
   // XXX implement this stuff.

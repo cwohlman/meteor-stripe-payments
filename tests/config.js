@@ -17,6 +17,8 @@ if (Meteor.isClient) {
   // 
   // var stripejs = Stripe;
 
+  TestPayments = null;
+
   Tinytest.add(
     'Stripe Payments - Config - Stripe.js exists in browser'
     , function (test) {
@@ -26,8 +28,7 @@ if (Meteor.isClient) {
   Tinytest.add(
     'Stripe Payments - Config - Payments.provider.config'
     , function (test) {
-      test.isTrue(_.isFunction(Payments.provider.config));
-      Payments.provider.config('pk_test_MRjxc7wA1Ba5WLiRObJjFY5r');
+      TestPayments = new StripePayments('pk_test_MRjxc7wA1Ba5WLiRObJjFY5r');
   });
 }
 
@@ -35,8 +36,7 @@ if (Meteor.isServer) {
   Tinytest.add(
     'Stripe Payments - Config - Payments.provider.config callable'
     , function (test) {
-      test.isTrue(_.isFunction(Payments.provider.config));
-      Payments.provider.config('sk_test_A5jGIKAJKfGPQHm3CqUsOScT');
+      TestPayments = new StripePayments('sk_test_A5jGIKAJKfGPQHm3CqUsOScT');
   });
 }
 

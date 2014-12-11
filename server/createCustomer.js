@@ -1,6 +1,7 @@
-Payments.provider.createCustomer = Meteor.wrapAsync(
+StripePayments.prototype.provider.createCustomer =
   function (userId, callback) {
     check(userId, String);
+    var self = this;
 
     var user = Meteor.users.findOne(userId);
 
@@ -17,7 +18,7 @@ Payments.provider.createCustomer = Meteor.wrapAsync(
     var result = {
       request: request
     };
-    Stripe.customers.create(request, function (error, response) {
+    self.provider.stripe.customers.create(request, function (error, response) {
       try {
         if (error) {
           result.response = response || error;
@@ -35,4 +36,4 @@ Payments.provider.createCustomer = Meteor.wrapAsync(
       }
       callback(null, result);
     });
-});
+};

@@ -3,19 +3,19 @@ if (Meteor.isServer) {
     'createDebit': function (token) {
       var userId = Meteor.users.insert({});
 
-      var customerId = Payments.provider.createCustomer(userId)._id;
+      var customerId = TestPayments.provider.createCustomer(userId)._id;
 
       // Stripe requires a customerId when using stored payment methods,
       // we need a way to provide that to the payment processing system.
-      Payments.customers.insert({
+      TestPayments.customers.insert({
         _id: customerId
         , userId: userId
       });
 
-      var paymentId = Payments.provider.createPaymentMethod(
+      var paymentId = TestPayments.provider.createPaymentMethod(
         customerId, token)._id;
 
-      var debit = Payments.provider.createDebit({
+      var debit = TestPayments.provider.createDebit({
         amount: -100
         , paymentMethodId: paymentId
         , userId: userId
@@ -29,7 +29,7 @@ if (Meteor.isClient) {
   Tinytest.addAsync(
     'Stripe Payments - createDebit - is callable'
     , function (test, done) {
-      Payments.provider.createCardToken({
+      TestPayments.provider.createCardToken({
         number: 4242424242424242
         , cvc: 123
         , exp_month: '12'

@@ -1,14 +1,19 @@
-Meteor.startup(function () {
-  var key = Meteor.settings && Meteor.settings.public &&
-    Meteor.settings.public.stripe && Meteor.settings.public.stripe.publishableKey;
-  if (key) {
-    Payments.provider.config(key);
-  }
-});
+StripePayments = function (key, options) {
+  check(key, String);
+  check(options, Match.Optional(Object));
+  var self = this;
 
+  self.provider = _.clone(self.provider);
 
-Payments.provider = {
-  config: function (key) {
-    Stripe.setPublishableKey(key);
-  }
+  // As far as I can tell it's imposible to set the Stripe publishable key
+  // multiple times. What we'll do is set it here, then set it in Stripe
+  // before every api call.
+  self.provider.key = key;
+
+  // XXX options
+};
+
+StripePayments.prototype = new Payments();
+StripePayments.prototype.provider = {
+  currency: 'USD'
 };

@@ -1,10 +1,11 @@
-Payments.provider.createPaymentMethod = Meteor.wrapAsync(
+StripePayments.prototype.provider.createPaymentMethod =
   function (customerId, token, callback) {
     check(customerId, String);
     check(token, String);
     check(callback, Function);
+    var self = this;
     
-    var customer = Payments.customers.findOne(customerId);
+    var customer = self.customers.findOne(customerId);
 
     var request = {
       card: token
@@ -15,7 +16,7 @@ Payments.provider.createPaymentMethod = Meteor.wrapAsync(
       , acceptsDebits: true
       , acceptsCredits: false
     };
-    Stripe.customers.createCard(customerId, request, function (error, response) {
+    self.provider.stripe.customers.createCard(customerId, request, function (error, response) {
       try {
         if (error) {
           result.response = response || error;
@@ -37,4 +38,4 @@ Payments.provider.createPaymentMethod = Meteor.wrapAsync(
       }
       callback(null, result);
     });
-});
+};
