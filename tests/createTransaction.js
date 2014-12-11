@@ -4,9 +4,9 @@ if (Meteor.isServer) {
   Meteor.methods({
     'createTransaction': function (token) {
       if (!inited) {
-        TestPayments.registerDebits(function (userId) {
+        TestPayments.registerDebits(function (transaction) {
           return Charges.find({
-            userId: userId
+            userId: transaction.userId
           }).fetch();
         }, function (doc) {
           return doc;

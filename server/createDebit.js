@@ -31,7 +31,7 @@ StripePayments.prototype.provider.createDebit =
       request: request
     };
 
-    Stripe.charges.create(request, function (error, response) {
+    self.provider.stripe.charges.create(request, function (error, response) {
       try {
         if (error) {
           result.response = response || error;

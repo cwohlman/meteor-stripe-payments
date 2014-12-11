@@ -5,7 +5,10 @@ StripePayments = function (key, options) {
 
   var provider = {};
   _.each(self.provider, function (a, key) {
-    provider[key] = Meteor.wrapAsync(a, self);
+    if (_.isFunction(a))
+      provider[key] = Meteor.wrapAsync(a, self);
+    else
+      provider[key] = a;
   });
   self.provider = provider;
   self.provider.stripe = new Npm.require('stripe')(key);

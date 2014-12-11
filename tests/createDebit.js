@@ -36,6 +36,7 @@ if (Meteor.isClient) {
         , exp_year: (new Date()).getFullYear().toString().slice(2)
       }, function (error, result) {
         Meteor.call('createDebit', result, function (error, result) {
+          test.isTrue(!error);
           test.isTrue(_.isString(result._id));
           
           done();
