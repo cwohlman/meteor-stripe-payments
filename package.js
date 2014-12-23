@@ -1,7 +1,7 @@
 Package.describe({
   name: 'cwohlman:stripe-payments',
   summary: 'Stripe payments for meteor',
-  version: "0.3.0",
+  version: "0.4.0",
   git: 'https://github.com/cwohlman/meteor-stripe-payments.git'
 });
 
