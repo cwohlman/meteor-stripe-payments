@@ -11,6 +11,7 @@ StripePayments.prototype.provider.createDebit =
 
     var customer = self.customers.findOne({
       userId: transaction.userId
+      , providerInstance: self._id
     });
 
     if (!customer) {
