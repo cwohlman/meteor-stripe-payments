@@ -38,7 +38,7 @@ if (Meteor.isClient) {
         Meteor.call('createDebit', result, function (error, result) {
           test.isTrue(!error);
           test.isTrue(_.isString(result._id));
-          
+          test.isTrue(_.isFinite(result.net));
           done();
         });
       });

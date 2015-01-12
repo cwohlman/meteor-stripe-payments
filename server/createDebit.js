@@ -26,6 +26,8 @@ StripePayments.prototype.provider.createDebit =
       , card: transaction.paymentMethodId
       , description: transaction.description || undefined
       , statement_description: transaction.appearsOnStatementAs || undefined
+
+      , expand: ['balance_transaction']
     };
 
     var result = {
@@ -36,12 +38,14 @@ StripePayments.prototype.provider.createDebit =
       try {
         if (error) {
           result.response = response || error;
-          result.error = new Payments.Error(error.type, error.message, error);
+          result.error = self.processError(error);
           result.status = 'error';
         } else if (response) {
           result._id = response.id;
           result.response = response;
           result.status = 'success';
+          result.net = response && response.balance_transaction &&
+            response.balance_transaction.net;
         } else {
           throw new Error('No data received');
         }

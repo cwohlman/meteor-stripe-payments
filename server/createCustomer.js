@@ -22,7 +22,7 @@ StripePayments.prototype.provider.createCustomer =
       try {
         if (error) {
           result.response = response || error;
-          result.error = new Payments.Error(error.type, error.message, error);
+          result.error = self.processError(error);
           result.status = 'error';
         } else if (response) {
           result._id = response.id;

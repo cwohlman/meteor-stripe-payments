@@ -18,3 +18,11 @@ StripePayments.prototype = new Payments();
 StripePayments.prototype.provider = {
   currency: 'USD'
 };
+
+StripePayments.prototype.processError = function (error) {
+  var result = new Payments.Error(error.type, error.message, error);
+  if (error.type === "StripeCardError") {
+    result.sanitizedError = new Meteor.Error("card-error", error.message);
+  }
+  return result;
+};
